@@ -1,0 +1,225 @@
+swagger: "2.0"
+info:
+  description: "Manage customer"
+  version: "1.0.0"
+  title: "Customer"
+  termsOfService: "http://swagger.io/terms/"
+  contact:
+    email: "apiteam@swagger.io"
+  license:
+    name: "Apache 2.0"
+    url: "http://www.apache.org/licenses/LICENSE-2.0.html"
+host: "locolhost:8080"
+basePath: "/v1"
+tags:
+- name: "customer"
+  description: "Everything about customer"
+schemes:
+- "https"
+- "http"
+paths:
+  /v1/{countryCode}/{agentCode}/customers:
+    post:
+      tags:
+      - "customer"
+      summary: "update insert customer"
+      description: "upsert customer"
+      operationId: "upsertCustomer"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "customer"
+        description: "customer need to be added or updated in to db"
+        required: true
+        schema:
+          type: "string"
+      - in: "path"
+        name: "countryCode"
+        description: "countrycode"
+        required: true
+        type: "string"
+      - in: "path"
+        name: "agentCode"
+        description: "agentCode"
+        required: true
+        type: "string"
+      responses:
+        200:
+          description: "successfull"
+          schema:
+            type: "array"
+            items:
+              type: "string"
+        405:
+          description: "Invalid input"
+    get:
+      tags:
+      - "customer"
+      summary: "read all customer"
+      description: "read all customers in db"
+      operationId: "readAllCustomer"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "path"
+        name: "countryCode"
+        description: "countrycode"
+        required: true
+        type: "string"
+      - in: "path"
+        name: "agentCode"
+        description: "agentCode"
+        required: true
+        type: "string"
+      responses:
+        200:
+          description: "successfull action"
+          schema:
+            type: "string"
+        404:
+          description: "not found"
+        400:
+          description: "bad request"
+        500:
+          description: "internal server"
+  /v1/{countryCode}/customers:
+    put:
+      tags:
+      - "customer"
+      summary: "delete multiple customers by id"
+      description: "delete multiple customers by id"
+      operationId: "deleteMultipleCus"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "listId"
+        description: "list of customerId"
+        required: true
+        schema:
+          type: "array"
+          items:
+            type: "string"
+      - in: "path"
+        name: "countryCode"
+        description: "countrycode"
+        required: true
+        type: "string"
+      responses:
+        200:
+          description: "successfull action"
+          schema:
+            type: "string"
+        404:
+          description: "not found"
+        400:
+          description: "bad request"
+        500:
+          description: "internal server"
+  /v1/{countryCode}/{agentCode}/customers/{customerId}:
+    get:
+      tags:
+      - "customer"
+      summary: "read customer by customerID"
+      description: "read customer by customerId"
+      operationId: "readCustomerById"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "path"
+        name: "customerId"
+        description: "id of customer"
+        required: true
+        type: "string"
+      - in: "path"
+        name: "countryCode"
+        description: "countrycode"
+        required: true
+        type: "string"
+      - in: "path"
+        name: "agentCode"
+        description: "agentCode"
+        required: true
+        type: "string"
+      responses:
+        200:
+          description: "successfull"
+          schema:
+            type: "string"
+        400:
+          description: "bad request"
+        404:
+          description: "not found"
+        500:
+          description: "internal server"
+    put:
+      tags:
+      - "customer"
+      summary: "delete customer"
+      description: "delete customer"
+      operationId: "deleteCustomer"
+      produces:
+      - "text/plain"
+      parameters:
+      - in: "path"
+        name: "customerId"
+        description: "customerId need to be delete"
+        required: true
+        type: "string"
+      - in: "path"
+        name: "countryCode"
+        description: "countrycode"
+        required: true
+        type: "string"
+      - in: "path"
+        name: "agentCode"
+        description: "agentCode"
+        required: true
+        type: "string"
+      responses:
+        200:
+          description: "successfull delete"
+          schema:
+            type: "string"
+        400:
+          description: "Invalid ID supplied"
+        404:
+          description: "Product not found"
+        405:
+          description: "Validation exception"
+definitions:
+  Customer:
+    type: "object"
+    properties:
+      id:
+        type: "string"
+        example: "id1"
+      customerId:
+        type: "string"
+        example: "cs1"
+      countryCode:
+        type: "string"
+        example: "VNM"
+      agentCode:
+        type: "string"
+        example: "VN"
+      createDate:
+        type: "string"
+        format: "date"
+      modifiDate:
+        type: "string"
+        format: "date"
+      deleted:
+        type: "boolean"
+      json:
+        type: "object"
+        properties:
+          firstName:
+            type: "string"
+          lastName:
+            type: "string"

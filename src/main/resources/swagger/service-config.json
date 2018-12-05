@@ -1,0 +1,13 @@
+{
+  "artifactId": "product-service",
+  "basePackage": "com.dxc.customerAdapter",
+  "apiPackage": "com.dxc.customerAdapter.api",
+  "configPackage": "com.dxc.customerAdapter.api.config",
+  "modelPackage": "com.dxc.customerAdapter.api.model",
+  "delegatePattern": "true",
+  "hideGenerationTimestamp": "true",
+  "useBeanValidation": "true",
+  "dateLibrary": "joda",
+  "sourceFolder": "generated-sources/src/main/java"
+}
+
